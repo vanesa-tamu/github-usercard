@@ -60,10 +60,22 @@ const followersArray = ["tetondan", "dustinmyers", "justsml", "luishrd", "bigkne
 axios.get('https://api.github.com/users/vanesa-tamu')
   .then(response => {
     console.log(response)
+    const cardDiv = createCard(response)
+    cards.appendChild(cardDiv)
   })
   .catch(error => console.error(error))
 
 
+  followersArray.forEach(follower => {
+  axios.get(`https://api.github.com/users/${follower}`)
+  .then(response => {
+    const cardDiv = createCard(response)
+    cards.appendChild(cardDiv)
+    console.log("success", follower)
+  })
+  .catch(error => console.error(error))
+
+})
 
 
   function createCard(i){
