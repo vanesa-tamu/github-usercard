@@ -24,7 +24,7 @@
           user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+
 
 /* Step 3: Create a function that accepts a single object as its only argument,
           Using DOM methods and properties, create a component that will return the following DOM element:
@@ -53,3 +53,61 @@ const followersArray = [];
   luishrd
   bigknell
 */
+const cards = document.querySelector('.cards')
+const followersArray = ["tetondan", "dustinmyers", "justsml", "luishrd", "bigknell"];
+
+
+axios.get('https://api.github.com/users/vanesa-tamu')
+  .then(response => {
+    console.log(response)
+  })
+  .catch(error => console.error(error))
+
+
+
+
+  function createCard(i){
+    const card = document.createElement('div')
+    const img = document.createElement('img')
+    const cardInfo = document.createElement('div')
+    const name = document.createElement('h3')
+    const userName = document.createElement('p')
+    const locationInfo = document.createElement('p')
+    const profileInfo = document.createElement('p')
+    const address = document.createElement('a')
+    const followerInfo = document.createElement('p')
+    const followingInfo = document.createElement('p')
+    const bio = document.createElement('p')
+  
+    card.classList.add('card')
+    cardInfo.classList.add('card-info')
+    name.classList.add('name')
+    userName.classList.add('username')
+  
+
+    img.src = i.data.avatar_url
+    name.textContent = i.data.name
+    userName.textContent = i.data.login
+    locationInfo.textContent = i.data.location
+    profileInfo.textContent = "Profile: "
+    address.href = i.data.html_url 
+    address.textContent = "link to profile"
+    followerInfo.textContent = `Followers: ${i.data.followers}`
+    followingInfo.textContent = `Following: ${i.data.following}`
+    bio.textContent = `Bio: ${i.data.bio}`
+  
+  
+  
+    card.appendChild(img)
+    card.appendChild(cardInfo)
+    cardInfo.appendChild(name)
+    cardInfo.appendChild(userName)
+    cardInfo.appendChild(locationInfo)
+    cardInfo.appendChild(profileInfo)
+    profileInfo.appendChild(address)
+    cardInfo.appendChild(followerInfo)
+    cardInfo.appendChild(followingInfo)
+    cardInfo.appendChild(bio)
+  
+  return card;
+  }
